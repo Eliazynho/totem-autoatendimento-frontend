@@ -1,26 +1,79 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-popRed: #b92526;
+  --color-popYellow: #f0df5a;
+  --color-popBlack: #000000;
+  --color-popWhite: #ffffff;
+  --font-bangers: var(--font-bangers), cursive;
+  --font-nunito: var(--font-nunito), sans-serif;
+  --shadow-pop: 4px 4px 0px #000000;
+  --shadow-pop-hover: 6px 6px 0px #000000;
+  --shadow-pop-active: 0px 0px 0px #000000;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  body,
+  html {
+    @apply m-0 p-0 w-full min-h-screen bg-popWhite text-popBlack scroll-smooth;
+    user-select: none; /* Previne seleção de texto no Totem */
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Kiosk mode safety */
+  * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent; /* Remove highlight chato no clique do Android/Windows Touch */
+  }
+
+  /* Permite touch nos inputs */
+  input,
+  textarea {
+    user-select: auto;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .bg-halftone {
+    background: radial-gradient(
+      circle at center,
+      var(--tw-gradient-from) 0%,
+      var(--tw-gradient-to) 100%
+    );
+    background-image:
+      radial-gradient(#b92526 20%, transparent 20%),
+      radial-gradient(#f0df5a 20%, transparent 20%);
+    background-position:
+      0 0,
+      10px 10px;
+    background-size: 20px 20px;
+  }
+
+  /* Overlay para suavizar e pulsar fundo */
+  .bg-halftone-overlay {
+    background: linear-gradient(
+      45deg,
+      rgba(185, 37, 38, 0.8),
+      rgba(240, 223, 90, 0.4)
+    );
+    animation: pulseBackground 10s ease-in-out infinite;
+  }
+
+  .text-pop-stroke {
+    -webkit-text-stroke: 1.5px #000;
+    text-shadow: 3px 3px 0px #000;
+  }
+}
+
+@keyframes pulseBackground {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.8;
+  }
 }
