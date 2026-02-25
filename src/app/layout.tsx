@@ -20,6 +20,8 @@ export const metadata: Metadata = {
 };
 
 import { Providers } from "@/components/providers";
+import { IdleTimerProvider } from "@/components/IdleTimerProvider";
+import { LanguageProvider } from "@/lib/i18n/i18n";
 
 export default function RootLayout({
   children,
@@ -31,7 +33,11 @@ export default function RootLayout({
       <body
         className={`${bangers.variable} ${nunito.variable} font-nunito antialiased text-popBlack overflow-hidden`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <LanguageProvider>
+            <IdleTimerProvider>{children}</IdleTimerProvider>
+          </LanguageProvider>
+        </Providers>
       </body>
     </html>
   );
